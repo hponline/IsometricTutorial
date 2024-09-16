@@ -315,6 +315,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c922f52b9144de489d876a40e5c3c82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentYRotation: 0
+  zoomSpeed: 4
+  minFOV: 8
+  maxFOV: 30
+  smooth: 5
 --- !u!1 &120510887
 GameObject:
   m_ObjectHideFlags: 0

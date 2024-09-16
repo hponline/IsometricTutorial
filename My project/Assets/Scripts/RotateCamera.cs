@@ -12,12 +12,15 @@ public class RotateCamera : MonoBehaviour
         currentYRotation,
         zoomSpeed = 4f, 
         minFOV = 8f, 
-        maxFOV = 30f;
+        maxFOV = 30f,
+        smooth= 5.0f;
 
+    private Quaternion targetRotation;
     private void Start()
     {
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
         virtualCamera.m_Lens.OrthographicSize = 10.0f;
+        //targetRotation = transform.rotation;
     }
 
     void Update()
@@ -25,18 +28,20 @@ public class RotateCamera : MonoBehaviour
         MouseScroll();
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            CameraSetting(90);
+            CameraRotate(90);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            CameraSetting(-90);
+            CameraRotate(-90);
         }
+        // Kamera Hareketlerini yumusatma
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smooth * Time.deltaTime);
     }
 
-    void CameraSetting(float angle)
+    void CameraRotate(float angle)
     {
         currentYRotation += angle;
-        transform.rotation = Quaternion.Euler(30, currentYRotation, 0);   
+        targetRotation = Quaternion.Euler(30, currentYRotation, 0);       
     }
 
     void MouseScroll()
